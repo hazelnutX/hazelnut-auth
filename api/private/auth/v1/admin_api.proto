@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package hazelnut.auth_service.public.auth.v1;
+
+option go_package = "pkg/api/private/v1/auth";
+
+
+service AdminApi{
+  rpc GetToken(GetTokenRequest) returns(GetTokenResponse);
+}
+
+message GetTokenRequest{
+  int64 id = 1;
+}
+
+message GetTokenResponse {
+  string guid = 1;
+}
