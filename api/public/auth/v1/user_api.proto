@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package hazelnut.auth_service.public.auth.v1;
+
+option go_package = "pkg/api/public/v1/auth";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service UserApi{
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Update(UpdateRequest) returns (google.protobuf.Empty);
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message CreateRequest{
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string password_confirm = 4;
+}
+
+enum Role{
+  ROLE_UNSPECIFIED = 0;
+  ROLE_USER = 1;
+  ROLE_ADMIN = 2;
+}
+
+message CreateResponse{
+  int64 id = 1;
+}
+
+message GetRequest{
+  int64 id = 1;
+}
+
+message GetResponse{
+  string name = 1;
+  string email = 2;
+  Role role = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message UpdateRequest{
+  int64 id = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.StringValue email = 3;
+  Role role = 4;
+}
+
+message DeleteRequest{
+  int64 id = 1;
+}
